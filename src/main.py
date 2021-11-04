@@ -1,10 +1,9 @@
-from scheduleOpenings import shell
-from scheduleOpenings import calendar_structure
+from scheduleOpenings import shell, calendar_structure
 
 
 def main():
     calendar = calendar_structure.Calendar("main")
-    shell.main_screen()
+    shell.main_screen(calendar)
 
 
 if __name__ == "__main__":
