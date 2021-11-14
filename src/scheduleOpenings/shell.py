@@ -1,19 +1,20 @@
 def main_screen(calendar):
-    print("What would you like to do? ")
-    print("\ta) Add event")
-    print("\ta) Edit event")
-    print("\tb) Print events")
-    print("\tc) Exit")
-    answer = input(" $ ")
+    while True:
+        print("What would you like to do? ")
+        print("\ta) Add event")
+        print("\tb) Delete event")
+        print("\tc) Print events")
+        print("\td) Exit")
+        answer = input(" $ ")
 
-    if "a" in answer:
-        add_event(calendar)
-    elif "b" in answer:
-        pass
-    elif "c" in answer:
-        pass
-    else:
-        pass
+        if "a" in answer:
+            add_event(calendar)
+        elif "b" in answer:
+            delete_event(calendar)
+        elif "c" in answer:
+            print_events(calendar)
+        else:
+            break
 
 
 def add_event(calendar):
@@ -27,12 +28,14 @@ def add_event(calendar):
         calendar.add_event(name, start_time, end_time)
     except ValueError:
         print("Check your inputs, they don't seem to be in the right format.")
-    main_screen(calendar)
 
 
-def edit_event(calendar):
-    pass
+def delete_event(calendar):
+    calendar.print_events()
+    print("What is the ID of the event you would like to delete?")
+    id = input(" $ ")
+    calendar.delete_event(id)
 
 
 def print_events(calendar):
-    pass
+    calendar.print_events()
