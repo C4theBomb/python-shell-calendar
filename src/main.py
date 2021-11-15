@@ -1,8 +1,8 @@
-from scheduleOpenings import shell, calendar_structure
+from calendarApp import shell, models
 
 
 def main():
-    calendar = calendar_structure.Calendar("main")
+    calendar = models.Calendar("main")
     shell.main_screen(calendar)
 
 
