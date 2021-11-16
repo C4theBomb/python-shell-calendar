@@ -9,7 +9,7 @@ sys.path.append(os.path.abspath("./src/"))
 from calendarApp.models import Event, Calendar
 
 
-class TestCalendarStructure(unittest.TestCase):
+class CalendarModelTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.data1 = {
@@ -36,21 +36,17 @@ class TestCalendarStructure(unittest.TestCase):
 
     def test_event_add(self):
         # Test Configuration and Setup
-        event = Event(
-            self.data1["name"], self.data1["start_time"], self.data1["end_time"])
-
-        # Test Assertions
         with patch('sys.stdout', StringIO()) as print_output:
+
+            # Test Function
             self.calendar.add_event(
                 self.data1["name"], self.data1["start_time"], self.data1["end_time"])
             calendar_event = self.calendar.schedule[0]
+
+            # Test Assertions
             self.assertEqual(
-                f"[INFO] Event {calendar_event.name} added", print_output.getvalue().rstrip())
-            self.assertEqual(calendar_event.name, self.data1["name"])
-            self.assertEqual(calendar_event.start_time, datetime.strptime(
-                self.data1["start_time"], "%d/%m/%Y %H:%M:%S"))
-            self.assertEqual(calendar_event.start_time, datetime.strptime(
-                self.data1["start_time"], "%d/%m/%Y %H:%M:%S"))
+                f"[INFO] Event {self.data1['name']} added", print_output.getvalue().rstrip())
+            self.assertEqual(self.data1["name"], calendar_event.name)
 
     def test_event_delete(self):
         # Test Configuration and Setup
@@ -60,11 +56,13 @@ class TestCalendarStructure(unittest.TestCase):
         ]
         calendar_event = self.calendar.schedule[0]
 
-        # Test Assertions
         with patch('sys.stdout', StringIO()) as print_output:
-            self.calendar.delete_event(calendar_event.id)
+            # Test Function
+            self.calendar.delete_event([str(calendar_event.id)])
+
+            # Test Assertions
             self.assertEqual(
-                f"[INFO] Event {calendar_event.id} removed", print_output.getvalue().rstrip())
+                f"[INFO] Event(s) ['{calendar_event.id}'] removed", print_output.getvalue().rstrip())
             self.assertFalse(self.calendar.schedule)
 
     def test_event_order(self):
@@ -75,6 +73,8 @@ class TestCalendarStructure(unittest.TestCase):
             Event(
                 self.data1["name"], self.data1["start_time"], self.data1["end_time"])
         ]
+
+        # Test Function
         self.calendar.order_events()
 
         # Test Assertions
