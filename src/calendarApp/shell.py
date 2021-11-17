@@ -13,8 +13,10 @@ def main_screen(calendar):
             delete_event(calendar)
         elif "c" in answer:
             print_events(calendar)
-        else:
+        elif "d" in answer:
             break
+        else:
+            pass
 
 
 def add_event(calendar):

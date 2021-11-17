@@ -8,31 +8,34 @@ class Calendar():
         self.name = name
 
     def add_event(self, event_name, start_time, end_time):
-        if list(filter(lambda event: (event.name == event_name), self.schedule)):
-            print("[ERROR] Duplicate event, operation aborted")
-        else:
-            event = Event(event_name, start_time, end_time)
-            self.schedule.append(event)
-            print(f"[INFO] Event {event_name} added")
-            self.order_events()
+        # Create event object and append it to schedule list
+        event = Event(event_name, start_time, end_time)
+        self.schedule.append(event)
+        print(f"[INFO] Event {event_name} added")
+
+        # Reorders the schedule list
+        self.order_events()
 
     def delete_event(self, event_ids):
+        # Creates a list of doomed events whose ids match those in event_ids
         doomed_events = list(filter(lambda event: (
             str(event.id) in event_ids), self.schedule))
         doomed_event_ids = [str(event.id) for event in doomed_events]
 
+        # Check to make sure that an event was found for all of the event_ids
         if all(id in doomed_event_ids for id in event_ids):
             for doomed_event in doomed_events:
                 self.schedule.remove(doomed_event)
             print(f"[INFO] Event(s) {event_ids} removed")
         else:
-            print("[WARNING] No such event exists. Operation aborted.")
+            print("[WARNING] Invalid ID included in selection. Operation aborted.")
 
     def print_events(self):
         for event in self.schedule:
             print(event)
 
     def order_events(self):
+        # Sort events by their start time
         self.schedule.sort(key=(lambda event: event.start_time))
 
 
@@ -47,5 +50,6 @@ class Event():
         return f"Event ID: {self.id} \n\tName: {self.name} \n\tTime:{self.start_time} to {self.end_time}"
 
     def parse_time(self, time_str):
+        # Parses the given string data into datetime objects
         obj_str = datetime.strptime(time_str, "%d/%m/%Y %H:%M:%S")
         return obj_str
