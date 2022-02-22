@@ -8,7 +8,7 @@ class Calendar():
         self.name = name
 
     def add_event(self, event_name, start_time, end_time):
-        # Create event object and append it to schedule list
+        # Create Event() object and append it to schedule list
         event = Event(event_name, start_time, end_time)
         self.schedule.append(event)
         print(f"[INFO] Event {event_name} added")
@@ -22,7 +22,7 @@ class Calendar():
             str(event.id) in event_ids), self.schedule))
         doomed_event_ids = [str(event.id) for event in doomed_events]
 
-        # Check to make sure that an event was found for all of the event_ids
+        # Make sure that all event_ids given exist in the schedule
         if all(id in doomed_event_ids for id in event_ids):
             for doomed_event in doomed_events:
                 self.schedule.remove(doomed_event)
