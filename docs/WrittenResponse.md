@@ -5,8 +5,8 @@
 1. The overall purpose of the program is to help users organize their tasks.
 2. The functionality of the program is to organize user-inputted tasks by their start time.
 3. The input of the program demonstrated in the video includes:
-    - The input at the beginning the dictates what path the program takes (create task, delete task, edit task, exit)
-    - Another input takes in the information for a task (event_name, start_time, end_time)
+    - The input at the beginning the dictates what path the program takes (create event, delete event, edit event, print calendar, exit)
+    - The output is a message that prints based off of what what you pick in the input. The user input selecting the create event prints the event creation sequence.
 
 ## 3b.
 
